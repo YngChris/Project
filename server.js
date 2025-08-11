@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const rateLimit = require("express-rate-limit");
 require("dotenv").config();
 
 // Import configurations
@@ -47,21 +46,6 @@ app.use(
     credentials: config.cors.credentials,
   })
 );
-
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: config.rateLimit.windowMs,
-  max: config.rateLimit.maxRequests,
-  message: {
-    success: false,
-    message: "Too many requests from this IP, please try again later.",
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
-});
-
-// Apply rate limiting to auth routes
-app.use("/api/auth", limiter);
 
 // Body parsing middleware
 app.use(express.json({ limit: "10mb" }));
