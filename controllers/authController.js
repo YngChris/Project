@@ -9,7 +9,7 @@ const { ApiError } = require("../middleware/errorHandler");
  * @access Public
  */
 const register = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password, location } = req.body;
 
   // Check if user already exists
   const existingUser = await User.findOne({ email });
@@ -23,6 +23,7 @@ const register = asyncHandler(async (req, res) => {
     lastName,
     email,
     password,
+    location,
   });
 
   await user.save();
@@ -130,7 +131,8 @@ const getProfile = asyncHandler(async (req, res) => {
  * @access Private
  */
 const updateProfile = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email } = req.body;
+  const { firstName, lastName, email, location } = req.body;
+
   const user = await User.findById(req.user._id);
 
   if (!user) {
@@ -149,6 +151,7 @@ const updateProfile = asyncHandler(async (req, res) => {
   // Update other fields
   if (firstName) user.firstName = firstName;
   if (lastName) user.lastName = lastName;
+  if (location) user.location = location;
 
   await user.save();
 

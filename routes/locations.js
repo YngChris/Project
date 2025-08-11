@@ -1,8 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const locationController = require('../controllers/locationController');
-const { authenticateToken } = require('../middleware/auth');
-const { validateLocation } = require('../middleware/validation');
+const locationController = require("../controllers/locationController");
+const { authenticateToken } = require("../middleware/auth");
 
 // Apply authentication middleware to all routes
 router.use(authenticateToken);
@@ -12,69 +11,69 @@ router.use(authenticateToken);
  * @desc    Get nearby pharmacies/healthcare locations
  * @access  Private
  */
-router.get('/', locationController.getLocations);
+router.get("/", locationController.getLocations);
 
 /**
  * @route   POST /api/locations
  * @desc    Add new location
  * @access  Private
  */
-router.post('/', validateLocation, locationController.createLocation);
+router.post("/", locationController.createLocation);
 
 /**
  * @route   GET /api/locations/nearby
  * @desc    Get locations near user's coordinates
  * @access  Private
  */
-router.get('/nearby', locationController.getNearbyLocations);
+router.get("/nearby", locationController.getNearbyLocations);
 
 /**
  * @route   GET /api/locations/search
  * @desc    Search locations
  * @access  Private
  */
-router.get('/search', locationController.searchLocations);
+router.get("/search", locationController.searchLocations);
 
 /**
  * @route   GET /api/locations/favorites
  * @desc    Get favorite locations
  * @access  Private
  */
-router.get('/favorites', locationController.getFavoriteLocations);
+router.get("/favorites", locationController.getFavoriteLocations);
 
 /**
  * @route   GET /api/locations/:id
  * @desc    Get location by ID
  * @access  Private
  */
-router.get('/:id', locationController.getLocation);
+router.get("/:id", locationController.getLocation);
 
 /**
  * @route   PUT /api/locations/:id
  * @desc    Update location
  * @access  Private
  */
-router.put('/:id', validateLocation, locationController.updateLocation);
+router.put("/:id", locationController.updateLocation);
 
 /**
  * @route   DELETE /api/locations/:id
  * @desc    Delete location
  * @access  Private
  */
-router.delete('/:id', locationController.deleteLocation);
+router.delete("/:id", locationController.deleteLocation);
 
 /**
  * @route   POST /api/locations/:id/favorite
  * @desc    Toggle favorite status
  * @access  Private
  */
-router.post('/:id/favorite', locationController.toggleFavorite);
+router.post("/:id/favorite", locationController.toggleFavorite);
 
 /**
  * @route   POST /api/locations/:id/review
  * @desc    Add review/rating
  * @access  Private
  */
-router.post('/:id/review', locationController.addReview);
+router.post("/:id/review", locationController.addReview);
 
-module.exports = router; 
+module.exports = router;

@@ -48,6 +48,12 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    location: {
+      type: String,
+      required: [true, "Location is required"],
+      trim: true,
+      maxlength: [100, "Location cannot be more than 100 characters"],
+    },
     lastLogin: {
       type: Date,
       default: null,
@@ -120,6 +126,7 @@ userSchema.methods.getProfile = function () {
     firstName: this.firstName,
     lastName: this.lastName,
     email: this.email,
+    location: this.location,
     avatar: this.avatar,
     isActive: this.isActive,
     lastLogin: this.lastLogin,
